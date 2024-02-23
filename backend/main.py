@@ -2,13 +2,13 @@ from flask import request,jsonify
 from config import app,db
 from models import Runner
 
-@app.route("/runners",methods=["GET"])
+@app.route("/runners", methods=["GET"])
 def get_runners():
     runners = Runner.query.all()
     json_runners = list(map(lambda x: x.to_json(),runners))
     return jsonify({"runners": json_runners})
 
-@app.route("/runners", methods=["POST"])
+@app.route("/create-runner",  methods=["POST"])
 def post_runners():
     first_name = request.json.get("firstName")
     last_name = request.json.get("lastName")
@@ -19,10 +19,8 @@ def post_runners():
     tshirt_size = request.json.get("tshirtSize")
 
     if not first_name or not last_name or not email or not phone or not category or not blood_group or not tshirt_size:
-        return (
-            jsonify({"message":"All fields are required"}),
-            400,
-        )
+        return jsonify({"message":"All fields are required"}),400
+    
     
     new_runner = Runner(first_name=first_name,last_name=last_name,email=email,phone=phone,category=category,blood_group=blood_group,tshirt_size=tshirt_size)
     try:
@@ -55,7 +53,7 @@ def update_runner(runner_id):
     return jsonify({"message":"Runner details has been updated..."}), 200
 
 
-@app.route("/delete_runner/<int:runner_id>",method=["DELETE"])
+@app.route("/delete_runner/<int:runner_id>",methods=["DELETE"])
 def delete_runner(runner_id):
     runner = Runner.query.get(runner_id)
 
