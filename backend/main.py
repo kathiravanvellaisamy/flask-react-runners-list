@@ -16,13 +16,13 @@ def post_runners():
     phone = request.json.get("phone")
     category = request.json.get("category")
     blood_group = request.json.get("bloodGroup")
-    tshirt_size = request.json.get("tshirtSize")
+    shirt_size = request.json.get("shirtSize")
 
-    if not first_name or not last_name or not email or not phone or not category or not blood_group or not tshirt_size:
+    if not first_name or not last_name or not email or not phone or not category or not blood_group or not shirt_size:
         return jsonify({"message":"All fields are required"}),400
     
     
-    new_runner = Runner(first_name=first_name,last_name=last_name,email=email,phone=phone,category=category,blood_group=blood_group,tshirt_size=tshirt_size)
+    new_runner = Runner(first_name=first_name,last_name=last_name,email=email,phone=phone,category=category,blood_group=blood_group,shirt_size=shirt_size)
     try:
         db.session.add(new_runner)
         db.session.commit()
@@ -46,7 +46,7 @@ def update_runner(runner_id):
     runner.phone = data.get("phone",runner.phone)
     runner.category = data.get("category",runner.category)
     runner.blood_group = data.get("bloodGroup",runner.blood_group)
-    runner.tshirt_size = data.get("tshirtSize",runner.tshirt_size)
+    runner.shirt_size = data.get("tshirtSize",runner.shirt_size)
 
     db.session.commit()
 
