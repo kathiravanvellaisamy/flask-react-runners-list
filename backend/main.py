@@ -34,6 +34,39 @@ def post_runners():
     return jsonify({"message":"Runner created...!"}),201
 
 
+@app.route("/runners/<int:runner_id>",methods=["PATCH"])
+def update_runner(runner_id):
+    runner = Runner.query.get(runner_id)
+
+    if not runner:
+        return jsonify({"message":"User not found!"}), 404
+    
+    data = request.json
+    runner.first_name = data.get("firstName",runner.first_name)
+    runner.last_name = data.get("lastName",runner.last_name)
+    runner.email = data.get("email",runner.email)
+    runner.phone = data.get("phone",runner.phone)
+    runner.category = data.get("category",runner.category)
+    runner.blood_group = data.get("bloodGroup",runner.blood_group)
+    runner.tshirt_size = data.get("tshirtSize",runner.tshirt_size)
+
+    db.session.commit()
+
+    return jsonify({"message":"Runner details has been updated..."}), 200
+
+
+@app.route("/delete_runner/<int:runner_id>",method=["DELETE"])
+def delete_runner(runner_id):
+    runner = Runner.query.get(runner_id)
+
+    if not runner:
+        return jsonify({"message":"Runner not found..."}),404
+    
+    db.session.delete(runner)
+    db.session.commit()
+
+    return jsonify({"message":"Runner details has been deleted..."})
+
 if __name__ == "__main":
     with app.app_context():        
         db.create_all()
