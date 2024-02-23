@@ -8,7 +8,7 @@ def get_runners():
     json_runners = list(map(lambda x: x.to_json(),runners))
     return jsonify({"runners": json_runners})
 
-@app.route('/runners', methods=['GET', 'POST'])
+@app.route("/runners", methods=["POST"])
 def post_runners():
     first_name = request.json.get("firstName")
     last_name = request.json.get("lastName")
