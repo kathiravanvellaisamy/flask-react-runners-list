@@ -10,13 +10,13 @@ def get_runners():
 
 @app.route("/create-runner",  methods=["POST"])
 def post_runners():
-    first_name = request.json.get("firstName")
-    last_name = request.json.get("lastName")
+    first_name = request.json.get("first_name")
+    last_name = request.json.get("last_name")
     email = request.json.get("email")
     phone = request.json.get("phone")
     category = request.json.get("category")
-    blood_group = request.json.get("bloodGroup")
-    shirt_size = request.json.get("shirtSize")
+    blood_group = request.json.get("blood_group")
+    shirt_size = request.json.get("shirt_size")
 
     if not first_name or not last_name or not email or not phone or not category or not blood_group or not shirt_size:
         return jsonify({"message":"All fields are required"}),400
@@ -46,7 +46,7 @@ def update_runner(runner_id):
     runner.phone = data.get("phone",runner.phone)
     runner.category = data.get("category",runner.category)
     runner.blood_group = data.get("bloodGroup",runner.blood_group)
-    runner.shirt_size = data.get("tshirtSize",runner.shirt_size)
+    runner.shirt_size = data.get("shirtSize",runner.shirt_size)
 
     db.session.commit()
 
