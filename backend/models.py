@@ -2,13 +2,13 @@ from config import db
 
 class Runner(db.Model):
     id = db.Column(db.Integer,primary_key=True)
-    first_name = db.Column(db.String(80),unique=False,nullable=True)
-    last_name = db.Column(db.String(80),unique=False,nullable=True)
-    email = db.Column(db.String(120),unique=True,nullable=True)
-    phone = db.Column(db.String(15),unique=False,nullable=True)
-    category = db.Column(db.String(80),unique=False,nullable=True)
-    blood_group = db.Column(db.String(80),unique=False,nullable=True)
-    shirt_size = db.Column(db.String(80),unique=False,nullable=True)
+    first_name = db.Column(db.String(80),unique=False,nullable=False)
+    last_name = db.Column(db.String(80),unique=False,nullable=False)
+    email = db.Column(db.String(120),unique=True,nullable=False)
+    phone = db.Column(db.String(15),unique=False,nullable=False)
+    category = db.Column(db.String(80),unique=False,nullable=False)
+    blood_group = db.Column(db.String(80),unique=False,nullable=False)
+    shirt_size = db.Column(db.String(80),unique=False,nullable=False)
 
     def to_json(self):
         return{
